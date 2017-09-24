@@ -7,11 +7,11 @@ import(
 )
 // Project struct for output
 type Project struct {
-	Repos           string `json:"repos"`
+	Repos           string `json:"project"`
 	Owner		string `json:"owner"`
 	Committer	string `json:"committer"`
 	Commits		int    `json:"commits"`
-	Languages	[]string `json:"languages"`
+	Languages	[]string `json:"language"`
 }
 // Contributors struct for the contributrs API
 type Contributors struct {
@@ -20,6 +20,7 @@ type Contributors struct {
 }
 // Repos struct for the Repository API
 type Repos struct {
+	Name		string `json:"name"`
         Owner	struct{
 		   Login	 string `json:"login"`
 		}
@@ -71,7 +72,7 @@ func handlerProjects(w http.ResponseWriter, r *http.Request){
       return
    }
 
-   t.Repos = s[3] + "/" + s[4] + "/" + s[5]
+   t.Repos = t1.Name
    t.Owner = t1.Owner.Login
    t.Committer = (*t2)[0].Login
    t.Commits = (*t2)[0].Contributions
